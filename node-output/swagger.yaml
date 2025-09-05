@@ -1,0 +1,94 @@
+openapi: '3.0.0'
+info:
+  title: Weather API
+  description: RESTful API for accessing current weather, forecasts, and historical data
+  version: '1.0.0'
+servers:
+  - url: https://api.weather.com/v1
+paths:
+  /weather/current:
+    get:
+      operationId: getCurrentWeather
+      summary: Retrieve current weather data
+      parameters:
+        - name: apiKey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Current weather data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherReport'
+        "400":
+          description: Bad request
+        "404":
+          description: Weather data not found
+  /weather/forecast:
+    get:
+      operationId: getWeatherForecast
+      summary: Retrieve weather forecast data
+      parameters:
+        - name: apiKey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Weather forecast data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  forecast:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WeatherReport'
+        "400":
+          description: Bad request
+        "404":
+          description: Forecast data not found
+  /weather/historical:
+    get:
+      operationId: getHistoricalWeather
+      summary: Retrieve historical weather data
+      parameters:
+        - name: apiKey
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Historical weather data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherReport'
+        "400":
+          description: Bad request
+        "404":
+          description: Historical data not found
+components:
+  schemas:
+    WeatherReport:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        temperature:
+          type: number
+        condition:
+          type: string
