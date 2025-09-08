@@ -1,12 +1,6 @@
 openapi: 3.0.0
 info:
-  description: |
-    This is a sample Flower Shop server.  
-    This includes the Buy REST APIs.
-    You can find
-    out more about Swagger at
-    [http://swagger.io](http://swagger.io) or on
-    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  description: 
   version: 3.0.0
   title: Flower Shop -- Buy
   termsOfService: 'http://swagger.io/terms/'
